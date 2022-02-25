@@ -1,0 +1,17 @@
+{
+  "name": "uni-router-swap",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Generates transactions to interact with Uniswap Router V2.",
+  "author": "joonspoon",
+  "license": "MIT",
+  "scripts": {
+    "test": "node testSwap.js"
+  },
+  "dependencies": {
+    "@uniswap/sdk": "^3.0.3",
+    "ethereumjs-tx": "^2.1.2",
+    "ethers": "^5.5.4",
+    "web3": "^1.7.0"
+  }
+}
