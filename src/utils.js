@@ -21,8 +21,12 @@ export function signAndSendTransaction(transaction) {
     return web3.eth.sendSignedTransaction(`0x${serializedEthTx}`);
 }
 
+export function getFakeProvider() {
+  return new Web3.providers.HttpProvider("https://www.google.com");
+}
+
 export function getProvider() {
-  return new Web3.providers.HttpProvider( `https://eth-rinkeby.alchemyapi.io/v2/${secrets.alchemyApiKey}`)
+  return new Web3.providers.HttpProvider(`https://eth-rinkeby.alchemyapi.io/v2/${secrets.alchemyApiKey}`)
 }
 
 export function loadContractAbi(contractName) {
