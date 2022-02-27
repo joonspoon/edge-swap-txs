@@ -17,7 +17,7 @@ export function signAndSendTransaction(transaction) {
     const privateKeyInHex = new Buffer.from(secrets.privateKey, "hex");
     transaction.sign(privateKeyInHex);
     const serializedEthTx = transaction.serialize().toString("hex");
-    var web3 = new Web3(getProvider());
+    const web3 = new Web3(getProvider());
     return web3.eth.sendSignedTransaction(`0x${serializedEthTx}`);
 }
 
@@ -32,4 +32,9 @@ export function getProvider() {
 export function loadContractAbi(contractName) {
     let builtContract = require("../contracts/" + contractName + ".json");
     return builtContract.abi;
+}
+
+export async function getNonceForWallet(walletAddress) {
+  const web3 = new Web3(getProvider());
+  return web3.eth.getTransactionCount(walletAddress);
 }
