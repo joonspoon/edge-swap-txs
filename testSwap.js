@@ -3,8 +3,8 @@ import * as Uniswap from './src/uniswap.js';
 import * as Utils from './src/utils.js'
 
 /* ------------ user settings ------------ */
-const sourceAsset = 'WETH';
-const destinationAsset= 'UNI';
+const sourceAsset = 'LINK';
+const destinationAsset= 'WETH';
 const amountToSwap = ethers.utils.parseEther(".001");
 const useEdgeContract = true;
 const walletAddress = "0x0c74caFf031C9cefbBCdF84Ed5363f928078DA51";
