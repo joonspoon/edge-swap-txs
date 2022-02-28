@@ -6,7 +6,9 @@ const secrets = require('./secrets.json') // use the require method
 const Web3 = require("web3");
 
 export function getRinkebyAddressFromCurrencyCode(currencyCode) {
-  return currencyInfo.metaTokens.find(token => token.currencyCode == currencyCode).rinkebyAddress;
+  const tokenMeta = currencyInfo.metaTokens.find(token => token.currencyCode == currencyCode);
+  if (tokenMeta) return tokenMeta.rinkebyAddress;
+  else return "ETH";  // ERC-20 token not found in available selection, so assume this is ETH
 }
 
 export function getAddressFromCurrencyCode(currencyCode) {
