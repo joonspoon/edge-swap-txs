@@ -175,7 +175,8 @@ export const currencyInfo = {
           multiplier: '1000000'
         }
       ],
-      contractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+      contractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      rinkebyAddress: '0x3b00ef435fa4fcff5c209a37d1f3dcff37c705ad'
     },
     {
       currencyCode: 'IND',
@@ -296,7 +297,8 @@ export const currencyInfo = {
           multiplier: '1000000'
         }
       ],
-      contractAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+      contractAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+      rinkebyAddress: '0xeb8f08a975ab53e34d8a0330e0d34de942c95926'
     },
     {
       currencyCode: 'USDS',
@@ -837,7 +839,8 @@ export const currencyInfo = {
           multiplier: '100000000'
         }
       ],
-      contractAddress: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599'
+      contractAddress: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+      rinkebyAddress: '0x577D296678535e4903D59A4C929B718e1D575e0A'
     },
     {
       currencyCode: 'YFI',
