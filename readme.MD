@@ -17,22 +17,18 @@ npm install
 * Edit the wallet address in testSwap.js
 
 ## To run swaps:
-Before running the command below, use the testSwap.js file to select a pair and an amount to swap. Make sure your Rinkeby wallet has enough of your source asset. See above for obtaining test ETH and LINK from a faucet.
-Not all tokens have liquidity on Rinkeby. Good options for swaps are UNI, LINK, DAI, and WETH.
+Before running the command below: 
+* Use the testSwap.js file to select a pair and an amount to swap. 
+* Make sure your Rinkeby wallet has enough of your source asset. See above for obtaining test ETH and LINK from a faucet.
+
+[notes] Not all tokens have liquidity on Rinkeby. Good options for swaps are UNI, LINK, DAI, and WETH.
 Stable coin liquidity (USDC & USDT) is shallow on Rinkeby, so you swapping between these is unlikely to result in the 1:1 ratio you might expect.
 ```
 yarn swap
 ```
 
 ## To withdraw fees:
-The smart contract will collect 0.5% from each swap and hold it until the withdraw command is . The withdrawal address is fixed to the contract owner which is [0xeBf5C62481B5F65E5994317cE7EB71AafE82E8bb](https://rinkeby.etherscan.io/address/0xeBf5C62481B5F65E5994317cE7EB71AafE82E8bb). You can use this link to check that the funds have been received.
+The smart contract will collect 0.5% from each swap and hold it until this withdraw command shakes the money tree. The withdrawal address is fixed to the contract owner which is [0xeBf5C62481B5F65E5994317cE7EB71AafE82E8bb](https://rinkeby.etherscan.io/address/0xeBf5C62481B5F65E5994317cE7EB71AafE82E8bb). You can use this link to check that the funds have been received.
 ```
 yarn cashout
 ```
-
-https://github.com/mousee421/pancakeswap-uniswap-sniper-bot-common/blob/master/start.js
-
-tools
-https://eth-converter.com/
-https://dashboard.tenderly.co/
-https://remix.ethereum.org/
