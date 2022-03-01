@@ -4,7 +4,7 @@ import { Transaction } from 'ethereumjs-tx';
 
 const web3 = new Web3(Utils.getFakeProvider());
 const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from the current Unix time
-const edgeContractAddress = "0x84F4d73e9D679fc487cC819f02069096b4aBE210";
+const edgeContractAddress = "0xAd14652864994d93FeDb1B7f59337372C453E6BD";
 
 /* This function only works for native ETH => ERC-20 swaps. */
 export async function generateSwapTransactionsForUniswapRouter (swapRequest) {
