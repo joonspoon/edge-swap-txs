@@ -6,7 +6,8 @@
   "author": "joonspoon",
   "license": "MIT",
   "scripts": {
-    "test": "node testSwap.js"
+    "swap": "node testSwap.js",
+    "cashout": "node testWithdraw.js"
   },
   "dependencies": {
     "@uniswap/sdk": "^3.0.3",
