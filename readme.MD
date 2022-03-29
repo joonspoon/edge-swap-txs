@@ -36,3 +36,7 @@ tools
 https://eth-converter.com/
 https://dashboard.tenderly.co/
 https://remix.ethereum.org/
+## To check liquidity and get a quote:
+```
+yarn liquid
+```

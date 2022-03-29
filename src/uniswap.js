@@ -4,6 +4,7 @@ import { Transaction } from 'ethereumjs-tx';
 
 const web3 = new Web3(Utils.getFakeProvider());
 const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from the current Unix time
+const chainId = 4; //Rinkeby
 const edgeContractAddress = "0xAd14652864994d93FeDb1B7f59337372C453E6BD";
 
 /* This function only works for native ETH => ERC-20 swaps. */
@@ -96,7 +97,7 @@ async function generateApprovalTransaction (swapRequest) {
     .encodeABI();
 
   const approveSpendTransaction = {
-      chainId: 4,
+      chainId: 4, //TODO: use constant
       nonce: swapRequest.fromWallet.nonce,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
@@ -106,4 +107,32 @@ async function generateApprovalTransaction (swapRequest) {
   };
 
   return new Transaction(approveSpendTransaction, { chain: 'rinkeby' })
+}
+
+import { ChainId, Token, Fetcher, Route, Trade, TokenAmount, TradeType } from "@uniswap/sdk";
+
+export async function fetchSwapQuote(swapRequest) {
+  const sourceToken = await Fetcher.fetchTokenData( ChainId.RINKEBY, swapRequest.fromCurrencyCode);
+
+  const destinationToken = await Fetcher.fetchTokenData( ChainId.RINKEBY, swapRequest.toCurrencyCode);
+
+  try {
+    const pair = await Fetcher.fetchPairData(sourceToken, destinationToken);
+    const route = new Route([pair], sourceToken);
+    const trade = new Trade(
+      route,
+      new TokenAmount(sourceToken, swapRequest.nativeAmount),
+      TradeType.EXACT_INPUT
+    );
+    // console.log("executionPrice: ", trade.executionPrice.toSignificant(6));
+    // console.log("nextMidPrice: ", trade.nextMidPrice.toSignificant(6));
+    // console.log("midPrice.invert: ", route.midPrice.invert().toSignificant(6));
+    return trade.executionPrice.toSignificant(6);
+  } catch (error) {
+    // console.log(error);
+    if (error.message.includes("getReserves"))
+      throw new Error("no liquidity");
+    if (error.message.includes("ADDRESSES"))
+      throw new Error("source and destination assets are the same");
+  }
 }

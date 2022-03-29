@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "swap": "node testSwap.js",
-    "cashout": "node testWithdraw.js"
+    "cashout": "node testWithdraw.js",
+    "liquid": "node testCheckLiquidity.js"
   },
   "dependencies": {
     "@uniswap/sdk": "^3.0.3",
