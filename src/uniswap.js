@@ -113,7 +113,6 @@ import { ChainId, Token, Fetcher, Route, Trade, TokenAmount, TradeType } from "@
 
 export async function fetchSwapQuote(swapRequest) {
   const sourceToken = await Fetcher.fetchTokenData( ChainId.RINKEBY, swapRequest.fromCurrencyCode);
-
   const destinationToken = await Fetcher.fetchTokenData( ChainId.RINKEBY, swapRequest.toCurrencyCode);
 
   try {
@@ -129,10 +128,11 @@ export async function fetchSwapQuote(swapRequest) {
     // console.log("midPrice.invert: ", route.midPrice.invert().toSignificant(6));
     return trade.executionPrice.toSignificant(6);
   } catch (error) {
-    // console.log(error);
     if (error.message.includes("getReserves"))
       throw new Error("no liquidity");
-    if (error.message.includes("ADDRESSES"))
+    else if (error.message.includes("ADDRESSES"))
       throw new Error("source and destination assets are the same");
+    else
+      console.log("Unexpected error: " + error);
   }
 }
