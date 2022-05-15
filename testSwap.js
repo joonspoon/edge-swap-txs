@@ -16,7 +16,7 @@ const destinationTokenAddress = Utils.getRinkebyAddressFromCurrencyCode(destinat
 
 const swapRequest = {
   fromWallet: { address: walletAddress, nonce: walletNonce },
-  fromCurrencyCode: sourceTokenAddress,
+  fromCurrencyCode: sourceTokenAddress, //TODO change from fromCurrencyCode to sourceTokenAddress
   toCurrencyCode: destinationTokenAddress,
   nativeAmount: amountToSwap,
 }
@@ -30,6 +30,7 @@ else
 for (const transaction of transactions) {
   const result = await Utils.signAndSendTransaction(transaction);
   const { transactionHash } = result;
-  const transactionURL = "https://rinkeby.etherscan.io/tx/" + transactionHash;
+  //const transactionURL = "https://rinkeby.etherscan.io/tx/" + transactionHash;
+  const transactionURL = "https://dashboard.tenderly.co/tx/rinkeby/" + transactionHash;
   console.log("Transaction is pending at " + transactionURL);
 }
