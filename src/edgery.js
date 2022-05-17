@@ -142,7 +142,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-      rinkebyAddress: '0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8'
+      rinkebyAddress: '0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8',
+      goerliAddress: '0xdc31Ee1784292379Fbb2964b3B9C4124D8F89C60'
     },
     {
       currencyCode: 'SAI',
@@ -176,7 +177,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7',
-      rinkebyAddress: '0x3b00ef435fa4fcff5c209a37d1f3dcff37c705ad'
+      rinkebyAddress: '0x3b00ef435fa4fcff5c209a37d1f3dcff37c705ad',
+      goerliAddress: '0xe802376580c10fe23f027e1e19ed9d54d4c9311e'
     },
     {
       currencyCode: 'IND',
@@ -298,7 +300,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-      rinkebyAddress: '0xeb8f08a975ab53e34d8a0330e0d34de942c95926'
+      rinkebyAddress: '0xeb8f08a975ab53e34d8a0330e0d34de942c95926',
+      goerliAddress: '0xD87Ba7A50B2E7E660f678A895E4B72E7CB4CCd9C'
     },
     {
       currencyCode: 'USDS',
@@ -376,7 +379,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2',
-      rinkebyAddress: '0xf9ba5210f91d0474bd1e1dcdaec4c58e359aad85'
+      rinkebyAddress: '0xf9ba5210f91d0474bd1e1dcdaec4c58e359aad85',
+      goerliAddress: '0xc5E4eaB513A7CD12b2335e8a0D57273e13D499f7'
     },
     {
       currencyCode: 'GUSD',
@@ -465,7 +469,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0x514910771af9ca656af840dff83e8264ecf986ca',
-      rinkebyAddress: '0x01be23585060835e02b77ef475b0cc51aa1e0709'
+      rinkebyAddress: '0x01be23585060835e02b77ef475b0cc51aa1e0709',
+      goerliAddress: '0x45442cb17bd3e3c0aeae92bf425473e582d5e740'
     },
     {
       currencyCode: 'BRZ',
@@ -840,7 +845,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-      rinkebyAddress: '0x577D296678535e4903D59A4C929B718e1D575e0A'
+      rinkebyAddress: '0x577D296678535e4903D59A4C929B718e1D575e0A',
+      goerliAddress: '0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05'
     },
     {
       currencyCode: 'YFI',
@@ -1017,7 +1023,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-      rinkebyAddress: '0xc778417e063141139fce010982780140aa0cd5ab'
+      rinkebyAddress: '0xc778417e063141139fce010982780140aa0cd5ab',
+      goerliAddress: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6'
     },
     {
       currencyCode: 'RENBTC',
@@ -1150,7 +1157,8 @@ export const currencyInfo = {
         }
       ],
       contractAddress: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
-      rinkebyAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+      rinkebyAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+      goerliAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
     }
   ]
 }

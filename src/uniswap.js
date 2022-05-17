@@ -5,7 +5,7 @@ import { Transaction } from 'ethereumjs-tx';
 const web3 = new Web3(Utils.getFakeProvider());
 const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from the current Unix time
 const chainId = 4; //Rinkeby
-const edgeContractAddress = "0xAd14652864994d93FeDb1B7f59337372C453E6BD";
+const edgeContractAddress = "0x22166b4D8605A3a0425B81A66c56A50bFcD02b8b";
 
 /* This function only works for native ETH => ERC-20 swaps. */
 export async function generateSwapTransactionsForUniswapRouter (swapRequest) {
@@ -15,10 +15,18 @@ export async function generateSwapTransactionsForUniswapRouter (swapRequest) {
   const path = [swapRequest.fromCurrencyCode, swapRequest.toCurrencyCode];
 
   /* swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) */
-  const swapContractFilled = uniswapContract.methods.swapExactETHForTokens(0, path, swapRequest.fromWallet.address, deadline).encodeABI();
+  //const swapContractFilled = uniswapContract.methods.swapExactETHForTokens(0, path, swapRequest.fromWallet.address, deadline).encodeABI();
+
+  /* swapExactTokensForTokens_amountIn,
+  _amountOutMin,
+  path,
+  address(this),
+  block.timestamp) */
+  const swapContractFilled = uniswapContract.methods.swapExactTokensForTokens(swapRequest.nativeAmount, 0, path, swapRequest.fromWallet.address, deadline).encodeABI();
+
 
   const swapTransaction = {
-      chainId: 4, //rinkeby
+      chainId: 5, //goerli
       nonce: swapRequest.fromWallet.nonce,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
@@ -28,20 +36,51 @@ export async function generateSwapTransactionsForUniswapRouter (swapRequest) {
       data: swapContractFilled
   };
 
-  const swapTx = new Transaction(swapTransaction, { chain: 'rinkeby' })
+  const swapTx = new Transaction(swapTransaction, { chain: 'goerli' })
   return [swapTx];
 }
 
 export async function generateSwapTransactionsForEdgeContract (swapRequest) {
   if(swapRequest.fromCurrencyCode === "ETH")
-    return await generateSwapTransactionForETH(swapRequest);
+    return await generateSwapTransactionFromETH(swapRequest);
 
   const approveTx = await generateApprovalTransaction(swapRequest);
-  const swapTx = await generateSwapTransaction (swapRequest);
+  //
+  // let swapTx;
+  // if(swapRequest.toCurrencyCode === "ETH")
+  //   swapTx = await generateSwapTransactionToETH(swapRequest)
+  // else
+  //   swapTx = await generateSwapTransaction (swapRequest);
+
+    const swapTx = await generateSwapTransactionToETH(swapRequest)
+
   return [approveTx, swapTx];
 }
 
-async function generateSwapTransactionForETH (swapRequest) {
+
+async function generateSwapTransactionToETH (swapRequest) {
+  const edgeContractInterface = Utils.loadContractAbi("edge-swap");
+  const swapContract = new web3.eth.Contract(edgeContractInterface, edgeContractAddress);
+
+  /* function swapToETH(address _tokenIn, uint _amountIn, uint _amountOutMin) */
+  const swapContractFilled = swapContract.methods.swapToETH(swapRequest.fromCurrencyCode, swapRequest.nativeAmount, 0).encodeABI();
+  //  const swapContractFilled = swapContract.methods.swapToETH(swapRequest.toCurrencyCode, 0).encodeABI();
+
+  const swapTransaction = {
+      chainId: 5, //goerli
+      nonce: swapRequest.fromWallet.nonce + 1,
+      gasLimit: web3.utils.toHex(500000),
+      gasPrice: web3.utils.toHex(10000000000),
+      value: web3.utils.toHex(swapRequest.nativeAmount),
+      to: edgeContractAddress,
+      from: swapRequest.fromWallet.address,
+      data: swapContractFilled
+  };
+
+  return new Transaction(swapTransaction, { chain: 'goerli' })
+}
+
+async function generateSwapTransactionFromETH (swapRequest) {
   const edgeContractInterface = Utils.loadContractAbi("edge-swap");
   const swapContract = new web3.eth.Contract(edgeContractInterface, edgeContractAddress);
 
@@ -49,7 +88,7 @@ async function generateSwapTransactionForETH (swapRequest) {
   const swapContractFilled = swapContract.methods.swapFromETH(swapRequest.toCurrencyCode, 0).encodeABI();
 
   const swapTransaction = {
-      chainId: 4, //rinkeby
+      chainId: 5, //goerli
       nonce: swapRequest.fromWallet.nonce,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
@@ -59,7 +98,7 @@ async function generateSwapTransactionForETH (swapRequest) {
       data: swapContractFilled
   };
 
-  const swapTx = new Transaction(swapTransaction, { chain: 'rinkeby' })
+  const swapTx = new Transaction(swapTransaction, { chain: 'goerli' })
   return [swapTx];
 }
 
@@ -71,17 +110,17 @@ async function generateSwapTransaction (swapRequest) {
   const swapContractFilled = swapContract.methods.swapFromERC20(swapRequest.fromCurrencyCode, swapRequest.toCurrencyCode, swapRequest.nativeAmount, 0).encodeABI();
 
   const swapTransaction = {
-      chainId: 4, //rinkeby
+      chainId: 5, //goerli
       nonce: swapRequest.fromWallet.nonce + 1,
-      gasLimit: web3.utils.toHex(500000),
-      gasPrice: web3.utils.toHex(10000000000),
+      gasLimit: web3.utils.toHex(50000000),
+      gasPrice: web3.utils.toHex(1000000000000),
       value: 0,
       to: edgeContractAddress,
       from: swapRequest.fromWallet.address,
       data: swapContractFilled
   };
 
-  return new Transaction(swapTransaction, { chain: 'rinkeby' })
+  return new Transaction(swapTransaction, { chain: 'goerli' })
 }
 
 async function generateApprovalTransaction (swapRequest) {
@@ -106,14 +145,14 @@ async function generateApprovalTransaction (swapRequest) {
       data: approveEncodedABI
   };
 
-  return new Transaction(approveSpendTransaction, { chain: 'rinkeby' })
+  return new Transaction(approveSpendTransaction, { chain: 'goerli' })
 }
 
 import { ChainId, Token, Fetcher, Route, Trade, TokenAmount, TradeType } from "@uniswap/sdk";
 
 export async function fetchSwapQuote(swapRequest) {
-  const sourceToken = await Fetcher.fetchTokenData( ChainId.RINKEBY, swapRequest.fromCurrencyCode);
-  const destinationToken = await Fetcher.fetchTokenData( ChainId.RINKEBY, swapRequest.toCurrencyCode);
+  const sourceToken = await Fetcher.fetchTokenData( ChainId.GÖRLI, swapRequest.fromCurrencyCode);
+  const destinationToken = await Fetcher.fetchTokenData( ChainId.GÖRLI, swapRequest.toCurrencyCode);
 
   try {
     const pair = await Fetcher.fetchPairData(sourceToken, destinationToken);

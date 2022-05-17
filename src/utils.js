@@ -11,6 +11,12 @@ export function getRinkebyAddressFromCurrencyCode(currencyCode) {
   else return "ETH";  // ERC-20 token not found in available selection, so assume this is ETH
 }
 
+export function getGoerliAddressFromCurrencyCode(currencyCode) {
+  const tokenMeta = currencyInfo.metaTokens.find(token => token.currencyCode == currencyCode);
+  if (tokenMeta) return tokenMeta.goerliAddress;
+  else return "ETH";  // ERC-20 token not found in available selection, so assume this is ETH
+}
+
 export function getAddressFromCurrencyCode(currencyCode) {
   return currencyInfo.metaTokens.find(token => token.currencyCode == currencyCode).contractAddress;
 }
@@ -28,7 +34,7 @@ export function getFakeProvider() {
 }
 
 export function getProvider() {
-  return new Web3.providers.HttpProvider(`https://eth-rinkeby.alchemyapi.io/v2/${secrets.alchemyApiKey}`)
+  return new Web3.providers.HttpProvider(`https://eth-goerli.alchemyapi.io/v2/${secrets.alchemyApiKey}`)
 }
 
 export function loadContractAbi(contractName) {

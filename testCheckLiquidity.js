@@ -3,13 +3,13 @@ import * as Uniswap from './src/uniswap.js';
 import * as Utils from './src/utils.js'
 
 /* ------------ user settings ------------ */
-const sourceAsset = 'DAI';
+const sourceAsset = 'UNI';
 const destinationAsset= 'WETH';
 const amountToSwap = 1;
 /* ------------ user settings ------------ */
 
-const sourceTokenAddress = Utils.getRinkebyAddressFromCurrencyCode(sourceAsset);
-const destinationTokenAddress = Utils.getRinkebyAddressFromCurrencyCode(destinationAsset);
+const sourceTokenAddress = Utils.getGoerliAddressFromCurrencyCode(sourceAsset);
+const destinationTokenAddress = Utils.getGoerliAddressFromCurrencyCode(destinationAsset);
 
 const swapRequest = {
   fromCurrencyCode: sourceTokenAddress,
