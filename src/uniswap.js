@@ -4,7 +4,7 @@ import { Transaction } from 'ethereumjs-tx';
 
 const web3 = new Web3(Utils.getFakeProvider());
 const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from the current Unix time
-const chainId = 4; //Rinkeby
+const chainID = 4; //Rinkeby
 const edgeContractAddress = "0xAd14652864994d93FeDb1B7f59337372C453E6BD";
 
 /* This function only works for native ETH => ERC-20 swaps. */
@@ -18,7 +18,7 @@ export async function generateSwapTransactionsForUniswapRouter (swapRequest) {
   const swapContractFilled = uniswapContract.methods.swapExactETHForTokens(0, path, swapRequest.fromWallet.address, deadline).encodeABI();
 
   const swapTransaction = {
-      chainId: 4, //rinkeby
+      chainId: chainID,
       nonce: swapRequest.fromWallet.nonce,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
@@ -49,7 +49,7 @@ async function generateSwapTransactionForETH (swapRequest) {
   const swapContractFilled = swapContract.methods.swapFromETH(swapRequest.toCurrencyCode, 0).encodeABI();
 
   const swapTransaction = {
-      chainId: 4, //rinkeby
+      chainId: chainID,
       nonce: swapRequest.fromWallet.nonce,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
@@ -71,7 +71,7 @@ async function generateSwapTransaction (swapRequest) {
   const swapContractFilled = swapContract.methods.swapFromERC20(swapRequest.fromCurrencyCode, swapRequest.toCurrencyCode, swapRequest.nativeAmount, 0).encodeABI();
 
   const swapTransaction = {
-      chainId: 4, //rinkeby
+      chainId: chainID,
       nonce: swapRequest.fromWallet.nonce + 1,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
@@ -97,7 +97,7 @@ async function generateApprovalTransaction (swapRequest) {
     .encodeABI();
 
   const approveSpendTransaction = {
-      chainId: 4, //TODO: use constant
+      chainId: chainID,
       nonce: swapRequest.fromWallet.nonce,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
