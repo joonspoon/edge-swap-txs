@@ -3,10 +3,10 @@ import * as Uniswap from './src/uniswap.js';
 import * as Utils from './src/utils.js'
 
 /* ------------ user settings ------------ */
-const sourceAsset = 'LINK';
-const destinationAsset= 'WETH';
+const sourceAsset = 'LINK'; // start with ETH unless you already have some ERC-20 tokens in wallet
+const destinationAsset= 'UNI';  // some ERC-20 tokens that have liquidity on Rinkeby are: LINK, DAI, UNI, MKR
 const amountToSwap = ethers.utils.parseEther(".001");
-const useEdgeContract = true;
+const useEdgeContract = true; //we can also use the Uniswap router directly
 const walletAddress = "0x0c74caFf031C9cefbBCdF84Ed5363f928078DA51";
 /* ------------ user settings ------------ */
 
