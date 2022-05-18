@@ -6,7 +6,7 @@ const web3 = new Web3(Utils.getFakeProvider());
 const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from the current Unix time
 const chainID = 4; //Rinkeby
 const chainName = "rinkeby";
-const edgeContractAddress = "0xAd14652864994d93FeDb1B7f59337372C453E6BD";
+const edgeContractAddress = "0xAA6D9c63E2fEaa61b07422F32D5417eC0b355F73";
 
 /* This function only works for native ETH => ERC-20 swaps. */
 export async function generateSwapTransactionsForUniswapRouter (swapRequest) {
@@ -60,7 +60,7 @@ async function generateSwapTransactionToETH (swapRequest) {
       nonce: swapRequest.fromWallet.nonce + 1,
       gasLimit: web3.utils.toHex(500000),
       gasPrice: web3.utils.toHex(10000000000),
-      value: web3.utils.toHex(swapRequest.nativeAmount),
+      value: 0,
       to: edgeContractAddress,
       from: swapRequest.fromWallet.address,
       data: swapContractFilled
