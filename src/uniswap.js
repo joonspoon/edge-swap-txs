@@ -96,7 +96,7 @@ async function generateSwapTransaction (swapRequest) {
   const swapContract = new web3.eth.Contract(edgeContractInterface, edgeContractAddress);
 
   /* function swapFromERC20(address _tokenIn, address _tokenOut, uint _amountIn, uint _amountOutMin) */
-  const swapContractFilled = swapContract.methods.swapFromERC20(swapRequest.fromCurrencyCode, swapRequest.toCurrencyCode, swapRequest.nativeAmount, 0).encodeABI();
+  const swapContractFilled = swapContract.methods.swapFromERC20(swapRequest.fromCurrencyCode, swapRequest.toCurrencyCode, swapRequest.nativeAmount, swapRequest.minimumOut).encodeABI();
 
   const swapTransaction = {
       chainId: chainID,
